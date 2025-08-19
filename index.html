@@ -40,7 +40,196 @@
   src: local(''),
        url('./fonts/fa-regular-900.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
        url('./fonts/fa-regular-900.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
+} /*original css*/
+
+ *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .carousel-title {
+            text-align: center;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            position: relative;
+        }
+
+        .slide-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slide-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 40px;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .carousel-slide:hover .slide-overlay {
+            transform: translateY(0);
+        }
+
+        .slide-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .slide-description {
+            font-size: 1rem;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .carousel-nav:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .prev {
+            left: 20px;
+        }
+
+        .next {
+            right: 20px;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .dot.active {
+            background: white;
+            transform: scale(1.2);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .dot:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .carousel-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .carousel-container {
+                padding: 20px;
+            }
+
+            .carousel-title {
+                font-size: 2rem;
+                margin-bottom: 30px;
+            }
+
+            .slide-image {
+                height: 300px;
+            }
+
+            .slide-overlay {
+                padding: 20px;
+            }
+
+            .slide-title {
+                font-size: 1.2rem;
+            }
+
+            .carousel-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .prev {
+                left: 10px;
+            }
+
+            .next {
+                right: 10px;
+            }
+        }
+
+        .loading-shimmer {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
 
 </style>
 
@@ -153,15 +342,15 @@
   <div class="col-lg-6">
   <div class="row gx-5 d-flex">
     <div class="col-md-11">
-      <div class="shadow ratio ratio-16x9 rounded bg-cover bp-center align-self-end" data-aos="fade-right" style="background-image: url(img/webp/people15.webp);--bs-aspect-ratio: 50%;">
+      <div class="shadow ratio ratio-16x9 rounded bg-cover bp-center align-self-end" data-aos="fade-right" style="background-image: url(img/webp/papercup.webp);--bs-aspect-ratio: 50%;">
       </div>
     </div>
     <div class="col-md-5 offset-md-1">
-      <div class="shadow ratio ratio-1x1 rounded bg-cover mt-5 bp-center float-end" data-aos="fade-up" style="background-image: url(img/webp/interior42.webp);">
+      <div class="shadow ratio ratio-1x1 rounded bg-cover mt-5 bp-center float-end" data-aos="fade-up" style="background-image: url(img/webp/jutebag.webp);">
       </div>
     </div>
     <div class="col-md-6">
-      <div class="col-12 shadow ratio rounded bg-cover mt-5 bp-center" data-aos="fade-left" style="background-image: url(img/webp/people4.webp);--bs-aspect-ratio: 150%;">
+      <div class="col-12 shadow ratio rounded bg-cover mt-5 bp-center" data-aos="fade-left" style="background-image: url(img/webp/multiboxes.webp);--bs-aspect-ratio: 150%;">
       </div>
     </div>
   </div>
@@ -180,12 +369,12 @@
   <div class="container">
       <div class="row d-flex justify-content-between align-items-center">
   <div class="col-lg-5">
-    <h3 class="py-5 border-top border-dark" data-aos="fade-right">Our magic numbers</h3>
+    <h3 class="py-5 border-top border-dark" data-aos="fade-right">Our Products</h3>
 </div>
 <div class="col-lg-6">
   <div class="row">
     <div class="col-12">
-    <h2 class="display-6 mb-5" data-aos="fade-down">There are some important numbers for us. They are just numbers without any meaning, but we just love them.</h2>
+    <h2 class="display-6 mb-5" data-aos="fade-down">We are dealing with varity of packaging producs starting from paper to plastic bottles and caps</h2>
     </div>
     <div class="col-lg-6" data-aos="fade-up">
       <div class="display-1 fw-bold py-4">42%</div>
@@ -203,27 +392,71 @@
 </div>
 
 <div class="position-relative overflow-hidden w-100 bg-light">
-  <div class="container-fluid">
-  <div class="row overflow-scroll">
-    <div class="col-12">
-      <div class="row vw-100 px-0 py-vh-5 d-flex align-items-center scrollx">
-        <div class="col-md-2" data-aos="fade-up" data-aos-delay="200">
-            <img src="img/webp/people1.webp" class="img-fluid rounded shadow" alt="nice gallery image" width="1164" height="776">
-        </div>
-        <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
-            <img src="img/webp/people2.webp" class="img-fluid rounded shadow" alt="nice gallery image" width="844" height="1054">
-        </div>
-        <div class="col-md-3" data-aos="fade-up" data-aos-delay="600">
-            <img src="img/webp/interior29.webp" class="img-fluid rounded shadow" alt="nice gallery image" width="844" height="562">
-        </div>
-        <div class="col-md-2" data-aos="fade-up" data-aos-delay="800">
-            <img src="img/webp/people23.webp" class="rounded shadow img-fluid" alt="nice gallery image" width="512" height="341">
-        </div>
-      </div>
-    </div>
-   </div>
- </div>
+  <div class="container-fluid"></div>
 
+            <div class="carousel-counter">
+                <span id="currentSlide">1</span> / <span id="totalSlides">5</span>
+            </div>
+            
+            <div class="carousel-track" id="carouselTrack">
+                <div class="carousel-slide">
+                    <img src="img/webp/crsl_1.webp" 
+                         alt="Modern Packaging Design" class="slide-image">
+                    <div class="slide-overlay">
+                        <div class="slide-title">Sustainable Packaging Solutions</div>
+                        <div class="slide-description">Eco-friendly packaging materials and designs that reduce environmental impact while maintaining product protection and brand appeal.</div>
+                    </div>
+                </div>
+                
+                <div class="carousel-slide">
+                    <img src="img/webp/crsl_2.webp" 
+                         alt="Cardboard Packaging" class="slide-image">
+                    <div class="slide-overlay">
+                        <div class="slide-title">Cardboard & Paper Solutions</div>
+                        <div class="slide-description">Versatile corrugated cardboard and paperboard packaging for shipping, retail, and e-commerce applications.</div>
+                    </div>
+                </div>
+                
+                <div class="carousel-slide">
+                    <img src="img/webp/crsl_3.webp" 
+                         alt="Food Packaging" class="slide-image">
+                    <div class="slide-overlay">
+                        <div class="slide-title">Food & Beverage Packaging</div>
+                        <div class="slide-description">Specialized packaging solutions for food safety, freshness preservation, and attractive product presentation.</div>
+                    </div>
+                </div>
+                
+                <div class="carousel-slide">
+                    <img src="img/webp/crsl_4.webp" 
+                         alt="Industrial Packaging" class="slide-image">
+                    <div class="slide-overlay">
+                        <div class="slide-title">Industrial & Protective Packaging</div>
+                        <div class="slide-description">Heavy-duty packaging solutions for industrial products, electronics, and fragile items requiring maximum protection.</div>
+                    </div>
+                </div>
+                
+                <div class="carousel-slide">
+                    <img src="img/webp/crsl_5.webp" 
+                         alt="Luxury Packaging" class="slide-image">
+                    <div class="slide-overlay">
+                        <div class="slide-title">Premium & Luxury Packaging</div>
+                        <div class="slide-description">High-end packaging designs that enhance brand prestige and create memorable unboxing experiences for luxury products.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="carousel-nav prev" onclick="prevSlide()">‹</button>
+            <button class="carousel-nav next" onclick="nextSlide()">›</button>
+        </div>
+        
+        <div class="carousel-dots" id="carouselDots">
+            <button class="dot active" onclick="goToSlide(0)"></button>
+            <button class="dot" onclick="goToSlide(1)"></button>
+            <button class="dot" onclick="goToSlide(2)"></button>
+            <button class="dot" onclick="goToSlide(3)"></button>
+            <button class="dot" onclick="goToSlide(4)"></button>
+        </div>
+        <script src="js/script.js"></script>
 </div>
 
 <div class="py-vh-4 bg-gray-100 w-100 overflow-hidden" id="sustainability">
@@ -238,15 +471,15 @@
   <div class="col-lg-6">
   <div class="row gx-5 d-flex">
     <div class="col-md-11">
-      <div class="shadow ratio ratio-16x9 rounded bg-cover bp-center align-self-end" data-aos="fade-right" style="background-image: url(img/webp/people15.webp);--bs-aspect-ratio: 50%;">
+      <div class="shadow ratio ratio-16x9 rounded bg-cover bp-center align-self-end" data-aos="fade-right" style="background-image: url(img/webp/sus_bottle.webp);--bs-aspect-ratio: 50%;">
       </div>
     </div>
     <div class="col-md-5 offset-md-1">
-      <div class="shadow ratio ratio-1x1 rounded bg-cover mt-5 bp-center float-end" data-aos="fade-up" style="background-image: url(img/webp/interior42.webp);">
+      <div class="shadow ratio ratio-1x1 rounded bg-cover mt-5 bp-center float-end" data-aos="fade-up" style="background-image: url(img/webp/sus_box.webp);">
       </div>
     </div>
     <div class="col-md-6">
-      <div class="col-12 shadow ratio rounded bg-cover mt-5 bp-center" data-aos="fade-left" style="background-image: url(img/webp/people4.webp);--bs-aspect-ratio: 150%;">
+      <div class="col-12 shadow ratio rounded bg-cover mt-5 bp-center" data-aos="fade-left" style="background-image: url(img/webp/sus_long.webp);--bs-aspect-ratio: 150%;">
       </div>
     </div>
   </div>
