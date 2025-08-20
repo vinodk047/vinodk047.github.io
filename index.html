@@ -2,14 +2,14 @@
 <html class="h-100" lang="en">
 
   <head>
-      <meta charset="utf-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
   <link rel="icon" type="image/png" sizes="96x96" href="img/favicon.png">
   <title>Ecofibre Packaging</title>
   <link rel="stylesheet" href="css/theme.min.css">
-
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/emailjs-com/3.2.0/email.min.js"></script>
    <style>
 
 /* inter-300 - latin */
@@ -497,7 +497,7 @@
         <h2 class="display-6 mb-4">Contact Us</h2>
       </div>
 
-      <form>
+      <form id="contactForm">
         <div class="mb-3">
           <label for="name" class="form-label">Name</label>
           <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
@@ -514,9 +514,11 @@
         </div>
 
         <div class="d-grid">
-          <button type="submit" class="btn btn-warning btn-lg shadow">Submit</button>
+          <button type="submit" class="btn btn-warning btn-lg shadow" id="submitBtn">Submit</button>
         </div>
       </form>
+       <div id="statusMessage" class="status-message"></div>
+      <script src="js/email.js"></script>
     </div>
   </div>
 </div>
