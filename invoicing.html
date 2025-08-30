@@ -1,0 +1,328 @@
+<!--
+Filename: invoice.html
+Single-file static webpage: HTML + CSS + JS
+Uses: html2pdf.js (to generate PDF) and fetch POST to Google Apps Script Web App
+
+Instructions:
+1. Create a Google Sheet and note its ID (from URL).
+2. In Google Drive create a new Apps Script project and paste the Apps Script code shown below (Code.gs).
+3. Replace SHEET_NAME in Apps Script if needed.
+4. Deploy the Apps Script as a "Web app":
+   - "Execute as": Me
+   - "Who has access": Anyone (or Anyone, even anonymous)
+   - Copy the Web App URL and paste it into the `GSHEET_WEBHOOK_URL` variable in this HTML file.
+5. Host this HTML file (static hosting, or open locally). The page will POST invoice details to the Google Sheet and allow downloading a PDF.
+
+Notes on privacy: The Web App will receive invoice details; secure as needed. For production, restrict access, add authentication, or use a backend.
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Invoice Creator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--accent:#0ea5a4;--muted:#6b7280;--card:#ffffff}
+    body{font-family:Inter,system-ui,Segoe UI,Arial; background:#f3f4f6; margin:0;padding:28px}
+    .container{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 420px;gap:20px}
+    .card{background:var(--card);padding:20px;border-radius:12px;box-shadow:0 6px 18px rgba(15,23,42,0.06)}
+    h1{margin:0 0 12px;font-size:20px}
+    label{display:block;font-size:13px;color:var(--muted);margin-top:12px}
+    input[type=text], input[type=email], input[type=number], textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e6e6;margin-top:6px;font-size:14px}
+    table{width:100%;border-collapse:collapse;margin-top:10px}
+    th,td{padding:8px;border-bottom:1px solid #eee;text-align:left;font-size:14px}
+    .row-actions{display:flex;gap:8px;margin-top:12px}
+    button{background:var(--accent);color:white;padding:10px 12px;border-radius:8px;border:0;cursor:pointer}
+    button.ghost{background:#eef2f2;color:#064e4e}
+    .preview{overflow:auto;height:720px}
+    .invoice-box{width:100%;background:white;padding:22px;border-radius:8px}
+    .flex{display:flex;gap:12px;align-items:center}
+    .text-muted{color:var(--muted);font-size:13px}
+    .total{font-weight:700;font-size:18px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Create Invoice</h1>
+      <div>
+        <label>From (Your company)</label>
+        <input id="fromName" type="text" placeholder="Company name, address" value="My Company Ltd" />
+        <label>Bill To (Client)</label>
+        <input id="toName" type="text" placeholder="Client name / company" />
+        <label>Invoice #</label>
+        <input id="invoiceNo" type="text" placeholder="e.g. INV-1001" />
+        <div style="display:flex;gap:12px">
+          <div style="flex:1">
+            <label>Invoice Date</label>
+            <input id="invoiceDate" type="text" placeholder="YYYY-MM-DD" />
+          </div>
+          <div style="width:160px">
+            <label>Due Date</label>
+            <input id="dueDate" type="text" placeholder="YYYY-MM-DD" />
+          </div>
+        </div>
+        <label>Notes</label>
+        <textarea id="notes" rows="3" placeholder="Payment terms, notes..."></textarea>
+      </div>
+
+      <h2 style="margin-top:18px;font-size:16px">Items</h2>
+      <table id="itemsTable">
+        <thead>
+          <tr><th>Description</th><th style="width:90px">Qty</th><th style="width:110px">Unit Price</th><th style="width:110px">Amount</th><th style="width:40px"></th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+        <div class="row-actions">
+          <button id="addItemBtn" class="ghost">+ Add item</button>
+          <button id="saveToSheetBtn">Save to Google Sheet</button>
+        </div>
+        <div>
+          <div class="flex"><div class="text-muted">Subtotal</div><div style="width:16px"></div><div id="subtotal" class="total">0.00</div></div>
+          <div class="flex" style="margin-top:6px"><div class="text-muted">Tax (percent)</div><input id="taxPercent" type="number" value="0" style="width:80px;margin-left:8px;padding:6px;border-radius:6px;border:1px solid #e6e6e6"/></div>
+          <div class="flex" style="margin-top:6px"><div class="text-muted">Total</div><div style="width:16px"></div><div id="grandTotal" class="total">0.00</div></div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px;margin-top:16px">
+        <button id="downloadPdfBtn">Download PDF</button>
+        <button id="previewBtn" class="ghost">Update Preview</button>
+      </div>
+    </div>
+
+    <div class="card preview">
+      <div id="invoicePreview" class="invoice-box">
+        <!-- rendered invoice preview -->
+      </div>
+    </div>
+  </div>
+
+  <!-- html2pdf from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+  <script>
+    // ====== CONFIG ======
+    // Paste your deployed Google Apps Script Web App URL here (from Apps Script > Deploy > Web app)
+    const GSHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbw95gJZmuZ5PmbSXJgrYwYmtz5w6VcD16wz_8K2ul1EYQLaQmwPZIlAGQtCU2ix3g/exec';
+
+    // ====== Helpers ======
+    const $ = id => document.getElementById(id);
+    const q = s => document.querySelector(s);
+
+    const itemsTbody = document.querySelector('#itemsTable tbody');
+
+    function money(x){return Number(x||0).toFixed(2)}
+
+    function addItemRow(desc='', qty=1, price=0){
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><input class="desc" type="text" value="${desc}" placeholder="Item description" style="width:100%" /></td>
+        <td><input class="qty" type="number" value="${qty}" min="0" style="width:100%" /></td>
+        <td><input class="price" type="number" value="${price}" min="0" step="0.01" style="width:100%" /></td>
+        <td class="amount">${money(qty*price)}</td>
+        <td><button class="del">✕</button></td>
+      `;
+      itemsTbody.appendChild(tr);
+
+      const qtyInput = tr.querySelector('.qty');
+      const priceInput = tr.querySelector('.price');
+      const descInput = tr.querySelector('.desc');
+      const delBtn = tr.querySelector('.del');
+
+      function recalc(){
+        const qv = Number(qtyInput.value||0);
+        const pv = Number(priceInput.value||0);
+        tr.querySelector('.amount').textContent = money(qv*pv);
+        renderTotals();
+      }
+      qtyInput.addEventListener('input', recalc);
+      priceInput.addEventListener('input', recalc);
+      descInput.addEventListener('input', () => {});
+      delBtn.addEventListener('click', ()=>{ tr.remove(); renderTotals(); });
+
+      renderTotals();
+      return tr;
+    }
+
+    function getItems(){
+      return Array.from(itemsTbody.querySelectorAll('tr')).map(tr=>({
+        description: tr.querySelector('.desc').value,
+        qty: Number(tr.querySelector('.qty').value||0),
+        unitPrice: Number(tr.querySelector('.price').value||0),
+        amount: Number(tr.querySelector('.amount').textContent||0)
+      }));
+    }
+
+    function renderTotals(){
+      const items = getItems();
+      const subtotal = items.reduce((s,i)=>s + (i.qty*i.unitPrice),0);
+      const taxPercent = Number($('taxPercent').value||0);
+      const tax = subtotal * (taxPercent/100);
+      const grand = subtotal + tax;
+      $('subtotal').textContent = money(subtotal);
+      $('grandTotal').textContent = money(grand);
+    }
+
+    function buildPreview(){
+      const from = $('fromName').value;
+      const to = $('toName').value;
+      const invNo = $('invoiceNo').value;
+      const invDate = $('invoiceDate').value;
+      const dueDate = $('dueDate').value;
+      const notes = $('notes').value;
+      const items = getItems();
+
+      let itemsHtml = items.map(it=>`<tr><td>${escapeHtml(it.description)}</td><td style="text-align:right">${it.qty}</td><td style="text-align:right">${money(it.unitPrice)}</td><td style="text-align:right">${money(it.qty*it.unitPrice)}</td></tr>`).join('');
+      const subtotal = $('subtotal').textContent;
+      const taxPercent = $('taxPercent').value;
+      const grand = $('grandTotal').textContent;
+
+      const html = `
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+          <div>
+            <div style="font-weight:700;font-size:18px">${escapeHtml(from)}</div>
+            <div class="text-muted">Invoice</div>
+          </div>
+          <div style="text-align:right">
+            <div><strong>Invoice #: </strong>${escapeHtml(invNo)}</div>
+            <div><strong>Date: </strong>${escapeHtml(invDate)}</div>
+            <div><strong>Due: </strong>${escapeHtml(dueDate)}</div>
+          </div>
+        </div>
+        <div style="margin-bottom:12px"><strong>Bill To:</strong><div>${escapeHtml(to)}</div></div>
+        <table style="width:100%;border-collapse:collapse;margin-top:6px">
+          <thead><tr><th style="text-align:left">Description</th><th style="text-align:right">Qty</th><th style="text-align:right">Unit</th><th style="text-align:right">Amount</th></tr></thead>
+          <tbody>${itemsHtml}</tbody>
+        </table>
+        <div style="margin-top:12px;display:flex;justify-content:flex-end;gap:12px">
+          <div style="width:260px">
+            <div style="display:flex;justify-content:space-between"><div class="text-muted">Subtotal</div><div>${subtotal}</div></div>
+            <div style="display:flex;justify-content:space-between"><div class="text-muted">Tax (${escapeHtml(taxPercent)}%)</div><div>${money(Number(subtotal)*(Number(taxPercent)/100))}</div></div>
+            <hr />
+            <div style="display:flex;justify-content:space-between;font-weight:700"><div>Total</div><div>${grand}</div></div>
+          </div>
+        </div>
+        <div style="margin-top:18px;color:var(--muted)">${escapeHtml(notes)}</div>
+      `;
+
+      document.getElementById('invoicePreview').innerHTML = html;
+    }
+
+    function escapeHtml(str){
+      if(!str) return '';
+      return String(str).replace(/[&<>\"']/g, function(s){return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[s];});
+    }
+
+    document.getElementById('addItemBtn').addEventListener('click', ()=> addItemRow());
+    document.getElementById('previewBtn').addEventListener('click', ()=>{ renderTotals(); buildPreview(); });
+    document.getElementById('downloadPdfBtn').addEventListener('click', ()=>{
+      renderTotals(); buildPreview();
+      const element = document.getElementById('invoicePreview');
+      const opt = { margin:0.4, filename: (document.getElementById('invoiceNo').value||'invoice') + '.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } };
+      html2pdf().set(opt).from(element).save();
+    });
+
+    // Save to Google Sheet
+    document.getElementById('saveToSheetBtn').addEventListener('click', async ()=>{
+      renderTotals();
+      const payload = collectInvoicePayload();
+      if(!GSHEET_WEBHOOK_URL || GSHEET_WEBHOOK_URL.includes('REPLACE_WITH')){
+        alert('Please set the GSHEET_WEBHOOK_URL variable in the top of the HTML to your Apps Script Web App URL.');
+        return;
+      }
+      try{
+        const res = await fetch(GSHEET_WEBHOOK_URL, {
+          method:'POST',
+          body: JSON.stringify(payload),
+          headers: { 'Content-Type':'application/json' }
+        });
+        const text = await res.text();
+        alert('Saved to Google Sheet successfully. (Server response: '+text+')');
+      }catch(err){
+        console.error(err);
+        alert('Error saving to Google Sheet, check console and Apps Script deployment.');
+      }
+    });
+
+    function collectInvoicePayload(){
+      const data = {
+        from: $('fromName').value,
+        to: $('toName').value,
+        invoiceNo: $('invoiceNo').value,
+        invoiceDate: $('invoiceDate').value,
+        dueDate: $('dueDate').value,
+        notes: $('notes').value,
+        taxPercent: $('taxPercent').value,
+        subtotal: $('subtotal').textContent,
+        total: $('grandTotal').textContent,
+        items: getItems()
+      };
+      return data;
+    }
+
+    // initial state
+    addItemRow('Website design',1,1500);
+    addItemRow('Hosting (annual)',1,120);
+    renderTotals(); buildPreview();
+  </script>
+
+  <!--
+  -----------------------------------------------------------------
+  Google Apps Script (Code.gs) - create a new Apps Script project and paste this
+  -----------------------------------------------------------------
+  -->
+  <!--
+  // Code.gs
+  const SHEET_NAME = 'Sheet1'; // change if needed
+
+  function doPost(e) {
+    // Accept JSON POST and append to sheet
+    try {
+      var ss = SpreadsheetApp.openById('REPLACE_WITH_YOUR_SHEET_ID');
+      var sheet = ss.getSheetByName(SHEET_NAME) || ss.getSheets()[0];
+
+      var body = e.postData.contents;
+      var data = JSON.parse(body);
+
+      // Flatten items into a compact string
+      var itemsText = data.items.map(function(it){
+        return it.description + ' (x' + it.qty + ' @ ' + it.unitPrice + ')';
+      }).join(' | ');
+
+      var row = [
+        new Date(),
+        data.invoiceNo || '',
+        data.invoiceDate || '',
+        data.dueDate || '',
+        data.from || '',
+        data.to || '',
+        data.subtotal || '',
+        data.taxPercent || '',
+        data.total || '',
+        itemsText,
+        data.notes || ''
+      ];
+      sheet.appendRow(row);
+
+      return ContentService.createTextOutput(JSON.stringify({status:'ok'})).setMimeType(ContentService.MimeType.JSON);
+    } catch(err) {
+      return ContentService.createTextOutput(JSON.stringify({status:'error', message: err.toString()})).setMimeType(ContentService.MimeType.JSON);
+    }
+  }
+  -->
+
+  <!--
+  Deployment steps (Apps Script):
+  1. In the Apps Script project, replace 'REPLACE_WITH_YOUR_SHEET_ID' with your Google Sheet ID.
+  2. Save, then Deploy > New deployment > Select 'Web app'.
+  3. Choose 'Execute as: Me' and 'Who has access: Anyone' (or as per your security needs).
+  4. Click Deploy and copy the Web App URL.
+  5. Paste the Web App URL into the GSHEET_WEBHOOK_URL variable in this HTML file.
+
+  CORS note: When using ContentService JSON output and "Anyone, even anonymous" access, fetch from client-side should succeed. If you see CORS issues, either host the page as a Google Site or use a backend proxy.
+  -->
+</body>
+</html>
