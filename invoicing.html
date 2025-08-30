@@ -9,7 +9,7 @@
   <style>
     :root{--accent:#0ea5a4;--muted:#6b7280;--card:#ffffff}
     body{font-family:Inter,system-ui,Segoe UI,Arial; background:#f3f4f6; margin:0;padding:28px}
-    .container{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:350px 1fr;gap:20px}
+    .container{max-width:1700px;margin:0 auto;display:grid;grid-template-columns:450px 1fr;gap:20px}
     .card{background:var(--card);padding:20px;border-radius:12px;box-shadow:0 6px 18px rgba(15,23,42,0.06)}
     h1{margin:0 0 8px;font-size:18px}
     h2{margin-top:16px;font-size:14px;margin-bottom:8px}
@@ -48,9 +48,9 @@
       <h1>Create Invoice</h1>
       <div>
         <label>From (Your company)</label>
-        <input id="fromName" type="text" placeholder="Company name, address" value="EcoFibre Paper and Packaging" />
+        <input id="fromName" type="text" placeholder="Company name, address" value="EcoFibre Paper and Packaging LLC" />
         <label>Bill To (Client)</label>
-        <input id="toName" type="text" placeholder="Client name / company" />
+        <input id="toName" type="text"  placeholder="Client name / company" />
         <label>Invoice #</label>
         <input id="invoiceNo" type="text" placeholder="e.g. INV-1001" />
         <div style="display:flex;gap:12px">
@@ -68,17 +68,23 @@
       </div>
 
       <h2 style="margin-top:18px;font-size:16px">Items</h2>
-      <table id="itemsTable">
+      <table id="itemsTable" >
         <thead>
-          <tr><th>Description</th><th style="width:150px">Qty</th><th style="width:50px">Unit Price</th><th style="width:50px">Amount</th><th style="width:40px"></th></tr>
+          <tr>
+            <th style="width:50%">Description</th>
+            <th style="width:15%">Qty</th>
+            <th style="width:15%">Unit Price</th>
+            <th style="width:20%">Amount</th>
+            <th></th>
+          </tr>
         </thead>
         <tbody></tbody>
       </table>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+      <div style="display:flex;align-items:center;margin-top:10px">
         <div class="row-actions">
           <button id="addItemBtn" class="ghost">+ Add item</button>
         </div>
-        <div>
+        <div style="align-items: end; margin-left: auto; text-align: right; font-size: 12px;">
           <div class="flex"><div class="text-muted">Subtotal</div><div style="width:12px"></div><div id="subtotal" class="total">0.00</div></div>
           <div class="flex" style="margin-top:4px"><div class="text-muted">Tax (percent)</div><input id="taxPercent" type="number" value="0" style="width:60px;margin-left:6px;padding:4px;border-radius:4px;border:1px solid #e6e6e6;font-size:11px"/></div>
           <div class="flex" style="margin-top:4px"><div class="text-muted">Total</div><div style="width:12px"></div><div id="grandTotal" class="total">0.00</div></div>
@@ -114,9 +120,9 @@
     function addItemRow(desc='', qty=1, price=0){
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td><input class="desc" type="text" value="${desc}" placeholder="Item description" style="width:100%" /></td>
-        <td><input class="qty" type="number" value="${qty}" min="0" style="width:100%" /></td>
-        <td><input class="price" type="number" value="${price}" min="0" step="0.01" style="width:100%" /></td>
+        <td><input class="desc" type="text" value="${desc}" placeholder="Item description" style="width:90%" /></td>
+        <td><input class="qty" type="number" value="${qty}" min="0" style="width:70%" /></td>
+        <td><input class="price" type="number" value="${price}" min="0" step="0.01" style="width:70%" /></td>
         <td class="amount">${money(qty*price)}</td>
         <td><button class="del">✕</button></td>
       `;
@@ -170,7 +176,7 @@
       const notes = $('notes').value;
       const items = getItems();
 
-      let itemsHtml = items.map(it=>`<tr><td style="width:50%">${escapeHtml(it.description)}</td><td style="width:12%;text-align:center">${it.qty}</td><td style="width:18%;text-align:right">${money(it.unitPrice)}</td><td style="width:20%;text-align:right">${money(it.qty*it.unitPrice)}</td></tr>`).join('');
+      let itemsHtml = items.map(it=>`<tr><td style="width:50%">${escapeHtml(it.description).replace(/\n/g, '<br>')}</td><td style="width:15%;text-align:center">${it.qty}</td><td style="width:15%;text-align:right">${money(it.unitPrice)}</td><td style="width:15%;text-align:right">${money(it.qty*it.unitPrice)}</td></tr>`).join('');
       const subtotal = $('subtotal').textContent;
       const taxPercent = $('taxPercent').value;
       const grand = $('grandTotal').textContent;
@@ -325,8 +331,8 @@
     document.getElementById('taxPercent').addEventListener('input', renderTotals);
 
     // initial state
-    addItemRow('Website design',1,1500);
-    addItemRow('Hosting (annual)',1,120);
+    addItemRow('Pallet Box',1,1500);
+    addItemRow('Paper Cups',1,120);
     renderTotals(); buildPreview();
   </script>
 </body>
