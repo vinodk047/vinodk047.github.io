@@ -1,2 +1,3 @@
-# Stride - Bootstrap 5 HTML template
-A simple but clean Bootstrap 5 HTML template from https://templatedeck.com
+Color Pallet
+
+https://colorhunt.co/palette/ddf4e767c09026667f124170
