@@ -1,0 +1,121 @@
+profile_name:Vinod Ramachandra
+profile_title:Data Architect
+profile_description:Experienced Data Architect with a strong background in designing and implementing scalable data solutions. Skilled in data modeling, ETL processes, and cloud data platforms. Passionate about leveraging data to drive business insights and innovation.
+contact_email:vinodk047@gmail.com
+contact_phone:+971 559487700
+social_links:
+  linkedin:https://www.linkedin.com/in/vinodk047/
+  github:vinodk047
+  twitter:https://twitter.com/vinodk047
+  facebook:https://www.facebook.com/vinodk047
+skills:
+  - Data Modeling
+  - ETL Processes
+  - Cloud Data Platforms (AWS, Azure, GCP)
+  - SQL & NoSQL Databases
+  - Big Data Technologies (Hadoop, Spark)
+  - Data Warehousing
+  - Data Governance
+  - Business Intelligence
+  - Python & R
+  - Machine Learning
+experience:
+  - company:SIG Combibloc
+    role:Data Architect
+    duration:Jan 2020 - Present
+    responsibilities:
+      - Designed and implemented scalable data architectures to support business intelligence and analytics.
+      - Led the migration of on-premises data systems to cloud platforms, improving data accessibility and reducing costs.
+      - Collaborated with cross-functional teams to define data requirements and ensure data quality and integrity.
+      - Developed and maintained ETL processes to streamline data ingestion and transformation.
+      - Implemented data governance frameworks to ensure compliance with industry regulations.
+  - company:Tech Solutions Inc.
+    role:Senior Data Engineer
+    duration:Jun 2016 - Dec 2019
+    responsibilities:
+      - Built and optimized data pipelines for large-scale data processing and analytics.
+      - Worked closely with data scientists to provide clean and structured data for machine learning models.
+      - Monitored and troubleshooted data systems to ensure high availability and performance.
+      - Participated in the design and implementation of data warehousing solutions.
+education:
+  - institution:Vishweswaraya Technological University
+    degree:Bachelor of Engineering in Electrical and Electronics Engineering
+    duration:2005 - 2009          
+    details:
+      - Graduated with First Class Honors.
+      - Relevant coursework: Database Management Systems, Data Structures, Algorithms, Software Engineering.
+
+  - institution:Coursera
+    degree:Data Science Specialization
+    duration:2018 - 2019
+    details:
+      - Completed a series of courses covering data analysis, machine learning, and data visualization using Python and R.
+      - Developed practical skills in data wrangling, statistical analysis, and predictive modeling.
+certifications:
+  - name:Certified Data Management Professional (CDMP)
+    issuer:DAMA International
+    year:2021
+  - name:AWS Certified Big Data - Specialty
+    issuer:Amazon Web Services
+    year:2020
+  - name:Google Cloud Professional Data Engineer
+    issuer:Google Cloud
+    year:2019
+projects:
+  - name:Real-time Data Pipeline
+    description:Designed and implemented a real-time data pipeline using Apache Kafka and Spark Streaming to process and analyze streaming data from IoT devices.
+    technologies:Apache Kafka, Apache Spark, Python, AWS
+    link:https:vinodk047.github.io/real-time-data-pipeline
+  - name:Data Warehouse Migration
+    description:Led the migration of a legacy data warehouse to a modern cloud-based solution, improving data accessibility and reducing costs.
+    technologies:Amazon Redshift, SQL, ETL, Python
+    link:https:vinodk047.github.io/data-warehouse-migration
+  - name:Customer Segmentation Analysis
+    description:Conducted a customer segmentation analysis using clustering techniques to identify key customer groups and inform marketing strategies.
+    technologies:Python, R, Machine Learning, Data Visualization
+    link:https:vinodk047.github.io/customer-segmentation-analysis
+
+languages:
+  - English:Fluent
+  - Hindi:Intermediate
+  - Kannada:Fluent
+  - Tamil:Intermediate
+  - Telugu:Basic
+  - Malayalam:Basic
+
+hobbies:
+  - Reading
+  - Traveling
+  - Cooking
+  - Photography
+  - Technology Exploration
+  - Fitness & Outdoor Activities
+  - Music & Arts
+  - Volunteering & Community Service
+  - Blogging & Content Creation
+  - Gaming & Puzzles
+
+  - name:Weather Dashboard
+    description:Developed a web application that displays real-time weather data for major Asian cities using the OpenWeatherMap API.
+    technologies:React, Node.js, Express, OpenWeatherMap API
+    link:https:vinodk047.github.io/weather-dashboard  
+
+  - name:Portfolio Website
+    description:Created a personal portfolio website to showcase projects, skills, and experience as a Data Architect.
+    technologies:HTML, CSS, JavaScript, React
+    link:https:vinodk047.github.io/portfolio-website  
+
+  - name:Data Visualization Tool
+    description:Built an interactive data visualization tool to help users explore and analyze large datasets using D3.js and Plotly.
+    technologies:JavaScript, D3.js, Plotly, Python
+    link:https:vinodk047.github.io/data-visualization-tool
+  
+  - name:ETL Automation Script 
+    description:Developed an automated ETL script to streamline data extraction, transformation, and loading processes for a large-scale data warehouse.
+    technologies:Python, SQL, Apache Airflow
+    link:https:vinodk047.github.io/etl-automation-script
+
+  - name:Machine Learning Model for Predictive Analytics
+    description:Implemented a machine learning model to predict customer churn using logistic regression and decision trees.
+    technologies:Python, Scikit-learn, Pandas, NumPy
+    link:https:vinodk047.github.io/predictive-analytics-model

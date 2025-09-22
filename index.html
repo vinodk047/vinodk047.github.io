@@ -1,700 +1,446 @@
-<!doctype html>
-<html class="h-100" lang="en">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinod Ramachandra - Data Architect</title>
+    <link rel="icon" type="image/svg+xml" href="img/fevicon.svg">
 
-  <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
-  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
-  <link rel="icon" type="image/png" sizes="96x96" href="img/favicon.png">
-  <title>Ecofibre Packaging</title>
-  <link rel="stylesheet" href="css/theme.min.css">
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-   <style>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-/* inter-300 - latin */
-@font-face {
-  font-family: 'fontawesome';
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: local(''),
-       url('./fonts/fa-regular-400.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('./fonts/fa-regular-400.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-@font-face {
-  font-family: 'fontawesome';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: local(''),
-       url('./fonts/fa-regular-400.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('./fonts/fa-regular-400.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-@font-face {
-  font-family: 'fontawesome';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: local(''),
-       url('./fonts/fa-regular-900.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('./fonts/fa-regular-900.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-} /*original css*/
-
- *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .carousel-title {
-            text-align: center;
-            color: white;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 40px;
-            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .carousel-wrapper {
-            position: relative;
-            overflow: hidden;
-            border-radius: 16px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-        }
-
-        .carousel-track {
-            display: flex;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .carousel-slide {
-            min-width: 100%;
-            position: relative;
-        }
-
-        .slide-image {
-            width: 100%;
-            height: 500px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .slide-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-            color: white;
-            padding: 40px;
-            transform: translateY(100%);
-            transition: transform 0.4s ease;
-        }
-
-        .carousel-slide:hover .slide-overlay {
-            transform: translateY(0);
-        }
-
-        .slide-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .slide-description {
-            font-size: 1rem;
-            opacity: 0.9;
-            line-height: 1.5;
-        }
-
-        .carousel-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #333;
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-
-        .carousel-nav:hover {
-            background: white;
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .prev {
-            left: 20px;
-        }
-
-        .next {
-            right: 20px;
-        }
-
-        .carousel-dots {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 30px;
-        }
-
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.4);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-        }
-
-        .dot.active {
-            background: white;
-            transform: scale(1.2);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-        }
-
-        .dot:hover {
-            background: rgba(255, 255, 255, 0.8);
-        }
-
-        .carousel-counter {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        @media (max-width: 768px) {
-            .carousel-container {
-                padding: 20px;
-            }
-
-            .carousel-title {
-                font-size: 2rem;
-                margin-bottom: 30px;
-            }
-
-            .slide-image {
-                height: 300px;
-            }
-
-            .slide-overlay {
-                padding: 20px;
-            }
-
-            .slide-title {
-                font-size: 1.2rem;
-            }
-
-            .carousel-nav {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
-
-            .prev {
-                left: 10px;
-            }
-
-            .next {
-                right: 10px;
-            }
-        }
-
-        .loading-shimmer {
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
-
-
-</style>
-
-  </head>
-
-  <body data-bs-spy="scroll" data-bs-target="#navScroll">
-
-    <nav id="navScroll" class="navbar navbar-expand-lg navbar-light fixed-top" tabindex="0">
-  <div class="container">
-    <a class="navbar-brand pe-4 fs-4" href="/">
-  <span class="d-flex align-items-center">
-  <img src="img/ecofibre-logo.svg" alt="Ecofibre Logo" style="width: 100%; max-width: 160px; height: auto;">
-  </span>
-</a>
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      <li class="nav-item">
-    <a class="nav-link" href="#top" aria-label="Brings you to the frontpage">
-      Home
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#aboutus">
-      About us
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#products">
-      Products
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#sustainability">
-      Sustainability 
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#contactus">
-      Contact Us
-    </a>
-  </li>
-    </ul>
-    </div>
-</div>
-</nav>
-
-    <main>
-      <div class="w-100 overflow-hidden bg-gray-100" id="top">
-  
-<div class="container position-relative">
-<div class="col-12 col-lg-8 mt-0 h-100 position-absolute top-0 end-0" 
-     data-aos="fade-left" 
-     style="background-image: url(img/webp/interior11.webp); 
-            background-size: cover; 
-            background-position: center; 
-            background-repeat: no-repeat;">
-</div>
-    <div class="row">
-<div class="col-lg-7 py-vh-6 position-relative" data-aos="fade-right">
-  <h1 class="display-1 fw-bold mt-5">Your Paper Packaging Partner!</h1>
-  <p class="lead">At EcoFibre Paper and Packaging LLC, we specialize in trading high-quality paper and eco-friendly packaging solutions. From sustainable paper products to versatile packaging materials, we deliver innovative solutions for businesses around the globe.</p>
-  <a  href="#contactus" class="btn btn-dark btn-xl shadow me-3 rounded-0 my-5">Contact Us</a>
-</div>
-
-
-
-</div>
-</div>
-
-</div>
-
-<div class="py-vh-5 w-100 overflow-hidden" id="services">
-  <div class="container">
-      <div class="row d-flex justify-content-end">
-<div class="col-lg-8" data-aos="fade-down"><h2 class="display-6">We uphold our partnerships with integrity by providing world-class, FSC®/PEFC™ certified packaging solutions, driven by our mission and inspired by our vision.</h2></div>
-</div>
-<div class="row d-flex align-items-center">
-<div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-  <span class="h5 fw-lighter">01.</span>
-  <h3 class="py-5 border-top border-dark">Mission</h3>
-  <p>To provide high-quality, sustainable paper packaging solutions that meet the evolving needs of businesses in the Middle East by ensuring a reliable supply, competitive pricing, and exceptional customer service.</p>
- </div>
-
-<div class="col-md-6 col-lg-4 py-vh-4 pb-0" data-aos="fade-up" data-aos-delay="400">
-  <span class="h5 fw-lighter">02.</span>
-  <h3 class="py-5 border-top border-dark">Vision</h3>
-  <p>To be the region’s most trusted and preferred partner for eco-friendly paper packaging materials, driving innovation and supporting the transition towards a greener, sustainable future.</p>
- 
-</div>
-
-<div class="col-md-6 col-lg-4 py-vh-6 pb-0" data-aos="fade-up" data-aos-delay="600">
-  <span class="h5 fw-lighter">03.</span>
-  <h3 class="py-5 border-top border-dark">Goals & Strategy</h3>
-  <p>Our goal is to establish strong and lasting partnerships with manufacturers and customers, expand market presence across key Middle Eastern countries, and strategically build a robust supply chain network that ensures timely delivery and competitive pricing.</p>
-</div>
-</div>
-
-  </div>
-</div>
-
-<div class="py-vh-4 bg-gray-100 w-100 overflow-hidden" id="aboutus">
-<div class="container">
-      
-<div class="row d-flex justify-content-between align-items-center">
-  <div class="col-lg-6">
-  <div class="row gx-5 d-flex">
-    <div class="col-md-11">
-      <div class="shadow ratio ratio-16x9 rounded bg-cover bp-center align-self-end" data-aos="fade-right" style="background-image: url(img/webp/papercup.webp);--bs-aspect-ratio: 50%;">
-      </div>
-    </div>
-    <div class="col-md-5 offset-md-1">
-      <div class="shadow ratio ratio-1x1 rounded bg-cover mt-5 bp-center float-end" data-aos="fade-up" style="background-image: url(img/webp/jutebag.webp);">
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="col-12 shadow ratio rounded bg-cover mt-5 bp-center" data-aos="fade-left" style="background-image: url(img/webp/multiboxes.webp);--bs-aspect-ratio: 150%;">
-      </div>
-    </div>
-  </div>
-</div>
-<div class="col-lg-4">
-  <h3 class="py-5 border-top border-dark" data-aos="fade-left">EcoFibre is the brand you want to associate with for any paper packaging requirements</h3>
-  <p>EcoFibre Paper and Packaging LLC is a Dubai-based trading company dedicated to providing sustainable and innovative packaging solutions. With a strong commitment to quality and eco-conscious sourcing, we serve diverse industries, including FMCG, Food & Beverage, and Manufacturing. Our extensive portfolio includes paper products, eco-friendly packaging, reusable bags, and more.
-  </p>
-</div>
-</div>
-
-  </div>
-</div>
-
-<div class="py-vh-5 w-100 overflow-hidden" id="products">
-  <div class="container">
- <div class="row py-vh-4">
-      <div class="col-md-4">
-  <h2>Our Products</h2>
-  <p class="lead">We are dealing with variety of packaging products, starting from paper to plastic bottles and caps.</p>
-</div>
-<div class="col-md-4">
-
-  <h4>
-    <small>01.</small>
-    <br>Paper Products</h4>
-  <div class="d-inline float-end ms-4 mb-4 mt-2">
-    <img src="img/webp/ecopackingboxes.webp" width="100" height="150" class="img-fluid" alt="image1">
-  </div>
-  <p>
-    Whether you need printing paper for offices, packaging solutions for businesses, or creative paper for crafts and presentations, our products are carefully sourced and manufactured to deliver superior performance. We also provide eco-friendly alternatives made from recycled and responsibly sourced materials, supporting your commitment to a greener future
-  </p>
-
-  <h4 class="pt-5">
-    <small>03.</small>
-    <br>Plastic Products</h4>
-    <div class="d-inline float-end ms-4 mb-4 mt-2">
-      <img src="img/webp/capsclosures.webp" width="100" height="150" class="img-fluid" alt="image3">
-    </div>
-  <p>Our plastic products are designed with durability, versatility, and quality in mind to meet diverse packaging needs across industries. We offer a wide range of bottles, caps, and lids crafted from high-grade plastic materials that ensure safety, reliability, and cost-effectiveness. Whether for food & beverages, healthcare, cosmetics, or industrial packaging, our plastic bottles, caps, and lids deliver functionality, safety, and an eco-conscious choice with recyclable material options
-  </p>
-</div>
-<div class="col-md-4">
-  <h4>
-    <small>02.</small>
-    <br>Packaging Solutions</h4>
-    <div class="d-inline float-end ms-4 mb-4 mt-2">
-     <img src="img/webp/diecutbox.webp" width="100" height="150" class="img-fluid" alt="image2">
-    </div>
-  <p>Whether you need eco-friendly packaging, retail-ready boxes, industrial-grade containers, or specialized designs, we deliver tailored solutions that align with your brand identity and sustainability goals. With a focus on innovation, cost-effectiveness, and efficiency, our packaging ensures safe handling, optimized storage, and a lasting impression</p>
-
-  <h4 class="pt-5">
-    <small>04.</small>
-    <br>Ropes, Sacks and Jute Bags</h4>
-    <div class="d-inline float-end ms-4 mb-4 mt-2">
-  <img src="img/webp/jutebag.webp" width="100" height="150" class="img-fluid" alt="image4">
-    </div>
-  <p>Our trading solution specializes in delivering high-quality ropes, sacks, and jute bags to meet the diverse needs of industries, businesses, and individual buyers. Built on reliability, sustainability, and competitive pricing, we ensure that our products serve as essential packaging and utility solutions across multiple sectors. With a robust supply chain, quality assurance, and customer-centric approach, our trading solution bridges the gap between manufacturers and end users.
-  </p>
-</div>
-</div>
-</div>
-
-  </div>
-</div>
-
-<div class="position-relative overflow-hidden w-100 bg-light">
-  <div class="container-fluid"></div>
-
-            <div class="carousel-counter">
-                <span id="currentSlide">1</span> / <span id="totalSlides">5</span>
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home">Vinod R.</a>
             </div>
-            
-            <div class="carousel-track" id="carouselTrack">
-                <div class="carousel-slide">
-                    <img src="img/webp/crsl_1.webp" 
-                         alt="Modern Packaging Design" class="slide-image">
-                    <div class="slide-overlay">
-                        <div class="slide-title">Sustainable Packaging Solutions</div>
-                        <div class="slide-description">Eco-friendly packaging materials and designs that reduce environmental impact while maintaining product protection and brand appeal.</div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#certifications" class="nav-link">Certifications</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Hi, I'm <span class="highlight">Vinod Ramachandra</span></h1>
+                    <h2>Data Architect</h2>
+                    <p>Experienced Data Architect with a strong background in designing and implementing scalable data solutions. Skilled in data modeling, ETL processes, and cloud data platforms. Passionate about leveraging data to drive business insights and innovation.</p>
+                    <div class="hero-buttons">
+                        <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                        <a href="#projects" class="btn btn-secondary">View My Work</a>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://linkedin.com/in/vinodramchandra" target="_blank" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/vinodk047" target="_blank" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://twitter.com/vinodk047" target="_blank" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://www.facebook.com/vinodk047" target="_blank" aria-label="Facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
                     </div>
                 </div>
-                
-                <div class="carousel-slide">
-                    <img src="img/webp/crsl_2.webp" 
-                         alt="Cardboard Packaging" class="slide-image">
-                    <div class="slide-overlay">
-                        <div class="slide-title">Cardboard & Paper Solutions</div>
-                        <div class="slide-description">Versatile corrugated cardboard and paperboard packaging for shipping, retail, and e-commerce applications.</div>
+                <div class="hero-image">
+                    <img src="img/profile.jpg" alt="Vinod Ramachandra - Data Architect">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>I am a passionate Data Architect with over 8 years of experience in designing and implementing scalable data solutions. My expertise spans across data modeling, ETL processes, and cloud data platforms including AWS, Azure, and GCP.</p>
+                    <p>Currently working at SIG Combibloc, I lead initiatives to migrate on-premises data systems to cloud platforms, implement data governance frameworks, and collaborate with cross-functional teams to ensure data quality and integrity.</p>
+                    <p>I hold certifications from industry leaders and continuously strive to stay updated with the latest technologies and best practices in data architecture and engineering.</p>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <h3>8+</h3>
+                            <p>Years Experience</p>
+                        </div>
+                        <div class="stat">
+                            <h3>15+</h3>
+                            <p>Projects Completed</p>
+                        </div>
+                        <div class="stat">
+                            <h3>3</h3>
+                            <p>Certifications</p>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="carousel-slide">
-                    <img src="img/webp/crsl_3.webp" 
-                         alt="Food Packaging" class="slide-image">
-                    <div class="slide-overlay">
-                        <div class="slide-title">Food & Beverage Packaging</div>
-                        <div class="slide-description">Specialized packaging solutions for food safety, freshness preservation, and attractive product presentation.</div>
+                <div class="about-image">
+                    <img src="img/profile.jpg" alt="Vinod Ramachandra">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">Skills & Technologies</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <i class="fas fa-database"></i>
+                    <h3>Data Modeling</h3>
+                    <p>Designing efficient data models for various business requirements</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-cogs"></i>
+                    <h3>ETL Processes</h3>
+                    <p>Building robust data extraction, transformation, and loading pipelines</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-cloud"></i>
+                    <h3>Cloud Platforms</h3>
+                    <p>AWS, Azure, GCP - Implementing cloud-based data solutions</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-server"></i>
+                    <h3>SQL & NoSQL</h3>
+                    <p>Expertise in relational and non-relational database systems</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Big Data Technologies</h3>
+                    <p>Hadoop, Spark for large-scale data processing</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-warehouse"></i>
+                    <h3>Data Warehousing</h3>
+                    <p>Designing and implementing enterprise data warehouse solutions</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Data Governance</h3>
+                    <p>Ensuring data quality, security, and compliance frameworks</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-chart-bar"></i>
+                    <h3>Business Intelligence</h3>
+                    <p>Creating insights and analytics for business decision-making</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-python"></i>
+                    <h3>Python & R</h3>
+                    <p>Programming languages for data analysis and automation</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>Machine Learning</h3>
+                    <p>Implementing ML models for predictive analytics</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Data Architect</h3>
+                        <h4>SIG Combibloc</h4>
+                        <span class="timeline-date">Jan 2020 - Present</span>
+                        <ul>
+                            <li>Designed and implemented scalable data architectures to support business intelligence and analytics</li>
+                            <li>Led the migration of on-premises data systems to cloud platforms, improving data accessibility and reducing costs</li>
+                            <li>Collaborated with cross-functional teams to define data requirements and ensure data quality and integrity</li>
+                            <li>Developed and maintained ETL processes to streamline data ingestion and transformation</li>
+                            <li>Implemented data governance frameworks to ensure compliance with industry regulations</li>
+                        </ul>
                     </div>
                 </div>
-                
-                <div class="carousel-slide">
-                    <img src="img/webp/crsl_4.webp" 
-                         alt="Industrial Packaging" class="slide-image">
-                    <div class="slide-overlay">
-                        <div class="slide-title">Industrial & Protective Packaging</div>
-                        <div class="slide-description">Heavy-duty packaging solutions for industrial products, electronics, and fragile items requiring maximum protection.</div>
-                    </div>
-                </div>
-                
-                <div class="carousel-slide">
-                    <img src="img/webp/crsl_5.webp" 
-                         alt="Luxury Packaging" class="slide-image">
-                    <div class="slide-overlay">
-                        <div class="slide-title">Premium & Luxury Packaging</div>
-                        <div class="slide-description">High-end packaging designs that enhance brand prestige and create memorable unboxing experiences for luxury products.</div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Senior Data Engineer</h3>
+                        <h4>Tech Solutions Inc.</h4>
+                        <span class="timeline-date">Jun 2016 - Dec 2019</span>
+                        <ul>
+                            <li>Built and optimized data pipelines for large-scale data processing and analytics</li>
+                            <li>Worked closely with data scientists to provide clean and structured data for machine learning models</li>
+                            <li>Monitored and troubleshooted data systems to ensure high availability and performance</li>
+                            <li>Participated in the design and implementation of data warehousing solutions</li>
+                        </ul>
                     </div>
                 </div>
             </div>
-            
-            <button class="carousel-nav prev" onclick="prevSlide()">‹</button>
-            <button class="carousel-nav next" onclick="nextSlide()">›</button>
         </div>
-        
-        <div class="carousel-dots" id="carouselDots">
-            <button class="dot active" onclick="goToSlide(0)"></button>
-            <button class="dot" onclick="goToSlide(1)"></button>
-            <button class="dot" onclick="goToSlide(2)"></button>
-            <button class="dot" onclick="goToSlide(3)"></button>
-            <button class="dot" onclick="goToSlide(4)"></button>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fas fa-stream"></i>
+                        <h3>Real-time Data Pipeline</h3>
+                    </div>
+                    <p>Designed and implemented a real-time data pipeline using Apache Kafka and Spark Streaming to process and analyze streaming data from IoT devices.</p>
+                    <div class="project-tech">
+                        <span>Apache Kafka</span>
+                        <span>Apache Spark</span>
+                        <span>Python</span>
+                        <span>AWS</span>
+                    </div>
+                    <a href="https://vinodk047.github.io/real-time-data-pipeline" target="_blank" class="project-link">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fas fa-warehouse"></i>
+                        <h3>Data Warehouse Migration</h3>
+                    </div>
+                    <p>Led the migration of a legacy data warehouse to a modern cloud-based solution, improving data accessibility and reducing costs.</p>
+                    <div class="project-tech">
+                        <span>Amazon Redshift</span>
+                        <span>SQL</span>
+                        <span>ETL</span>
+                        <span>Python</span>
+                    </div>
+                    <a href="https://vinodk047.github.io/data-warehouse-migration" target="_blank" class="project-link">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fas fa-users"></i>
+                        <h3>Customer Segmentation Analysis</h3>
+                    </div>
+                    <p>Conducted a customer segmentation analysis using clustering techniques to identify key customer groups and inform marketing strategies.</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>R</span>
+                        <span>Machine Learning</span>
+                        <span>Data Visualization</span>
+                    </div>
+                    <a href="https://vinodk047.github.io/customer-segmentation-analysis" target="_blank" class="project-link">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Data Visualization Tool</h3>
+                    </div>
+                    <p>Built an interactive data visualization tool to help users explore and analyze large datasets using D3.js and Plotly.</p>
+                    <div class="project-tech">
+                        <span>JavaScript</span>
+                        <span>D3.js</span>
+                        <span>Plotly</span>
+                        <span>Python</span>
+                    </div>
+                    <a href="https://vinodk047.github.io/data-visualization-tool" target="_blank" class="project-link">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fas fa-robot"></i>
+                        <h3>ETL Automation Script</h3>
+                    </div>
+                    <p>Developed an automated ETL script to streamline data extraction, transformation, and loading processes for a large-scale data warehouse.</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>SQL</span>
+                        <span>Apache Airflow</span>
+                    </div>
+                    <a href="https://vinodk047.github.io/etl-automation-script" target="_blank" class="project-link">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fas fa-brain"></i>
+                        <h3>Predictive Analytics Model</h3>
+                    </div>
+                    <p>Implemented a machine learning model to predict customer churn using logistic regression and decision trees.</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>Scikit-learn</span>
+                        <span>Pandas</span>
+                        <span>NumPy</span>
+                    </div>
+                    <a href="https://vinodk047.github.io/predictive-analytics-model" target="_blank" class="project-link">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
         </div>
-        <script src="js/script.js"></script>
-</div>
+    </section>
 
-<div class="py-vh-4 bg-gray-100 w-100 overflow-hidden" id="sustainability">
-<div class="container">
-      
-<div class="row d-flex justify-content-between align-items-center">
-<div class="col-lg-4">
-  <h3 class="py-5 border-top border-dark" data-aos="fade-left">EcoFibre Sustainability Goals</h3>
-  <p>We are committed to expand our product portfolio with recyclable, biodegradable, and responsibly sourced packaging solutions by procuring from FSC®/PEFC™ certified suppliers, Our goal is to ensure ethical forestry and raw material practices. as well as to minimize emissions by optimising logistics and collaborating with environmentally conscious partners.
-  </p>
-</div>
-  <div class="col-lg-6">
-  <div class="row gx-5 d-flex">
-    <div class="col-md-11">
-      <div class="shadow ratio ratio-16x9 rounded bg-cover bp-center align-self-end" data-aos="fade-right" style="background-image: url(img/webp/sus_bottle.webp);--bs-aspect-ratio: 50%;">
-      </div>
-    </div>
-    <div class="col-md-5 offset-md-1">
-      <div class="shadow ratio ratio-1x1 rounded bg-cover mt-5 bp-center float-end" data-aos="fade-up" style="background-image: url(img/webp/sus_box.webp);">
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="col-12 shadow ratio rounded bg-cover mt-5 bp-center" data-aos="fade-left" style="background-image: url(img/webp/sus_long.webp);--bs-aspect-ratio: 150%;">
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-  </div>
-</div>
-
-<div class="py-vh-6 bg-gray-900 text-light w-100 overflow-hidden" id="contactus">
-<div class="container">
-  <div class="row d-flex justify-content-center">
-    <div class="col-lg-6 col-md-8">
-      <div class="text-center mb-4">
-        <h2 class="display-6 mb-4">Contact Us</h2>
-      </div>
-
-      <form id="contactForm">
-        <div class="mb-3">
-          <label for="name" class="form-label">Name</label>
-          <input type="text" class="form-control" id="name" name="user_name" placeholder="Enter your name" required>
+    <!-- Certifications Section -->
+    <section id="certifications" class="certifications">
+        <div class="container">
+            <h2 class="section-title">Certifications</h2>
+            <div class="certifications-grid">
+                <div class="cert-card">
+                    <div class="cert-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3>Certified Data Management Professional (CDMP)</h3>
+                    <p class="cert-issuer">DAMA International</p>
+                    <p class="cert-year">2021</p>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">
+                        <i class="fab fa-aws"></i>
+                    </div>
+                    <h3>AWS Certified Big Data - Specialty</h3>
+                    <p class="cert-issuer">Amazon Web Services</p>
+                    <p class="cert-year">2020</p>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <h3>Google Cloud Professional Data Engineer</h3>
+                    <p class="cert-issuer">Google Cloud</p>
+                    <p class="cert-year">2019</p>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" id="email" name="user_email" placeholder="Enter your email" required>
+    <!-- Education Section -->
+    <section id="education" class="education">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <div class="education-grid">
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Bachelor of Engineering in Electrical and Electronics Engineering</h3>
+                    <p class="education-institution">Vishweswaraya Technological University</p>
+                    <p class="education-duration">2005 - 2009</p>
+                    <ul>
+                        <li>Graduated with First Class Honors</li>
+                        <li>Relevant coursework: Database Management Systems, Data Structures, Algorithms, Software Engineering</li>
+                    </ul>
+                </div>
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Data Science Specialization</h3>
+                    <p class="education-institution">Coursera</p>
+                    <p class="education-duration">2018 - 2019</p>
+                    <ul>
+                        <li>Completed a series of courses covering data analysis, machine learning, and data visualization using Python and R</li>
+                        <li>Developed practical skills in data wrangling, statistical analysis, and predictive modeling</li>
+                    </ul>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="mb-3">
-          <label for="message" class="form-label">Message</label>
-          <textarea  class="form-control" id="message" name="message" rows="4" required></textarea>
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Let's Connect</h3>
+                    <p>I'm always interested in discussing new opportunities, innovative projects, and data architecture challenges.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>vinodk047@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+971 559487700</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Dubai, UAE</span>
+                        </div>
+                    </div>
+                    <div class="contact-social">
+                        <a href="https://www.linkedin.com/in/vinodk047/" target="_blank">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/vinodk047" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://twitter.com/vinodk047" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://www.facebook.com/vinodk047" target="_blank">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="d-grid">
-          <button type="submit" class="btn btn-warning btn-lg shadow" id="submitBtn">Submit</button>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Vinod Ramachandra. All rights reserved.</p>
         </div>
-      </form>
-       <div id="statusMessage" class="status-message"></div>
-      <script src="js/email.js"></script>
-    </div>
-  </div>
-</div>
-</div>
-<div class="small py-vh-3 w-100 overflow-hidden">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-lg-4 border-end" data-aos="fade-up">
-  <div class="d-flex">
-    <div class="col-md-3 flex-fill pt-3 pe-3 pe-md-0">
-      <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor" class="bi bi-box-seam" viewbox="0 0 16 16">
-        <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
-      </svg>
-    </div>
-    <div class="col-md-9 flex-fill">
-      <h3 class="h5 my-2">Delivery Service</h3>
-      <p>We ensure timely and reliable delivery of all packaging materials across the Middle East. With a strong logistics network and trusted partners, we guarantee that your orders reach you safely, on schedule, and in perfect condition</p>
-    </div>
-  </div>
-</div>
-<div class="col-md-6 col-lg-4 border-end" data-aos="fade-up" data-aos-delay="200">
-  <div class="d-flex">
-    <div class="col-md-3 flex-fill pt-3 pt-3 pe-3 pe-md-0">
-      <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor" class="bi bi-card-checklist" viewbox="0 0 16 16">
-        <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
-        <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z"/>
-      </svg>
-    </div>
-    <div class="col-md-9 flex-fill">
-      <h3 class="h5 my-2">Quality Checks</h3>
-      <p>Our paper packaging materials undergo strict quality checks at every stage of the supply chain. From sourcing to delivery, we ensure that every product meets international standards for durability, safety, and sustainability.</p>
-    </div>
-  </div>
-</div>
+    </footer>
 
-<div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
-  <div class="d-flex">
-    <div class="col-md-3 flex-fill pt-3 pt-3 pe-3 pe-md-0">
-      <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor" class="bi bi-window-sidebar" viewbox="0 0 16 16">
-        <path d="M2.5 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm2-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm1 .5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
-        <path d="M2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v2H1V3a1 1 0 0 1 1-1h12zM1 13V6h4v8H2a1 1 0 0 1-1-1zm5 1V6h9v7a1 1 0 0 1-1 1H6z"/>
-      </svg>
-    </div>
-    <div class="col-md-9 flex-fill">
-      <h3 class="h5 my-2">Online Support</h3>
-      <p>💬 “Need assistance? Our support team is here to help you with any questions, product details, or order issues. Just reach out and we’ll get back to you quickly</p>
-    </div>
-  </div>
-</div>
-
-    </div>
-  </div>
-</div>
-
-    </main>
-
-    <footer>
-  <div class="container small border-top">
-    <div class="row py-5 d-flex justify-content-between">
-
-<div class="col-12 col-lg-6 col-xl-3 border-end p-5">
-<img src="img/ecofibre-logo.svg" alt="Ecofibre Logo" style="width: 100%; max-width: 100px; height: auto;">
-  <address class="text-secondary mt-3">
-    <strong>EcoFibre Paper and Packaging LLC</strong><br>
-    Sharjah Industrial Area<br>
-    Sharjah, PB 200201<br>
-    <abbr title="Phone">P:</abbr>
-    (123) 456-7890
-  </address>
-</div>
-<div class="col-12 col-lg-6 col-xl-3 border-end p-5">
-  <h3 class="h6 mb-3">Company</h3>
-  <ul class="nav flex-column">
-    <li class="nav-item">
-      <a class="nav-link link-secondary ps-0" aria-current="page" href="#">Lorem ipsum</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link link-secondary ps-0" href="#">Dolor sitam est</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link link-secondary ps-0" href="#">Sed odio cras</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link link-secondary ps-0" href="#">Commodo tortor ac</a>
-    </li>
-  </ul>
-</div>
-<div class="col-12 col-lg-6 col-xl-3 border-end p-5">
-  <h3 class="h6 mb-3">Products</h3>
-  <ul class="nav flex-column">
-    <li class="nav-item">
-      <a class="nav-link link-secondary ps-0" aria-current="page" href="#">Paper Products</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link link-secondary ps-0" href="#">Packaging Solutions</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link link-secondary ps-0" href="#">Plastic Products</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link link-secondary ps-0" href="#">Caps and Lids</a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link link-secondary ps-0" href="#">Ropes, Sacks and Jute Bags</a>
-    </li>
-  </ul>
-</div>
-<div class="col-12 col-lg-6 col-xl-3 p-5">
-  <h3 class="h6 mb-3">Subpages</h3>
-  <ul class="nav flex-column">
-    <li class="nav-item">
-      <a class="nav-link link-secondary ps-0" aria-current="page" href="404.html">404 System Page</a>
-      <a class="nav-link link-secondary ps-0" aria-current="page" href="register.html">Register System Page</a>
-            <a class="nav-link link-secondary ps-0" aria-current="page" href="content.html">Simple Text Content Page</a>
-    </li>
-  </ul>
-</div>
-
-</div>
-</div>
-
-<div class="container text-center py-3 small">Made by <a href="https://vesoft.io" class="link-fancy" target="_blank">www.vesoft.io</a>
-</div>
-</footer>
-
-    <script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/aos.js"></script>
- <script>
- AOS.init({
-   duration: 800, // values from 0 to 3000, with step 50ms
- });
- </script>
-
- <script>
-  let scrollpos = window.scrollY
-  const header = document.querySelector(".navbar")
-  const header_height = header.offsetHeight
-
-  const add_class_on_scroll = () => header.classList.add("scrolled", "shadow-sm")
-  const remove_class_on_scroll = () => header.classList.remove("scrolled", "shadow-sm")
-
-  window.addEventListener('scroll', function() {
-    scrollpos = window.scrollY;
-
-    if (scrollpos >= header_height) { add_class_on_scroll() }
-    else { remove_class_on_scroll() }
-
-    console.log(scrollpos)
-  })
-</script>
-
-  </body>
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
 </html>

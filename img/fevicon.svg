@@ -1,0 +1,10 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Main circle with flat design -->
+  <circle cx="100" cy="100" r="95" fill="#164863"/>
+  
+  <!-- Letter V -->
+  <text x="70" y="125" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="#DDF2FD" text-anchor="middle">V</text>
+  
+  <!-- Letter R -->
+  <text x="130" y="125" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="#DDF2FD" text-anchor="middle">R</text>
+</svg>
